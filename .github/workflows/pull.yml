@@ -2,7 +2,7 @@ name: pull
 on: workflow_dispatch
 jobs:
   pull:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04   # 用 22.04 更稳
     steps:
       - name: Pull & Save
         run: |
@@ -15,7 +15,7 @@ jobs:
           docker pull redis:7-alpine
           docker pull semitechnologies/weaviate:1.19.0
           docker pull nginx:alpine
-          docker save -o dify-offline.tar $(docker images --format "{{.Repository}}:{{.Tag}}" | grep -E 'langgenius|hello-world|postgres|redis|weaviate|nginx')
+          docker save -o dify-offline.tar $(docker images --format "{{.Repository}}:{{.Tag}}")
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
