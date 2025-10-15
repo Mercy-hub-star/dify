@@ -1,0 +1,23 @@
+name: pull
+on: workflow_dispatch
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull & Save
+        run: |
+          docker pull hello-world
+          docker pull langgenius/dify-api:1.9.1
+          docker pull langgenius/dify-web:1.9.1
+          docker pull langgenius/dify-plugin_daemon:1.9.1
+          docker pull langgenius/dify-sandbox:1.9.1
+          docker pull postgres:15-alpine
+          docker pull redis:7-alpine
+          docker pull semitechnologies/weaviate:1.19.0
+          docker pull nginx:alpine
+          docker save -o dify-offline.tar $(docker images --format "{{.Repository}}:{{.Tag}}" | grep -E 'langgenius|hello-world|postgres|redis|weaviate|nginx')
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dify-offline
+          path: dify-offline.tar
