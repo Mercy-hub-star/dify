@@ -2,14 +2,14 @@ name: pull
 on: workflow_dispatch
 jobs:
   pull:
-    runs-on: ubuntu-22.04   # 用 22.04 更稳
+    runs-on: ubuntu-latest
     steps:
       - name: Pull & Save
         run: |
           docker pull hello-world
           docker pull langgenius/dify-api:1.9.1
           docker pull langgenius/dify-web:1.9.1
-          docker pull langgenius/dify-plugin_daemon:1.9.1
+          docker pull langgenius/dify-plugin-daemon:1.9.1
           docker pull langgenius/dify-sandbox:1.9.1
           docker pull postgres:15-alpine
           docker pull redis:7-alpine
